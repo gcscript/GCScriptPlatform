@@ -2,7 +2,7 @@
 
 namespace GCScript.Shared.Models;
 
-public class XPathSelectorBuilderItem
+public class MXPathSelectorBuilderItem
 {
     public EXPathSelectorBuilderMode Mode { get; set; } = EXPathSelectorBuilderMode.Text;
     public EComparisonType ComparisonType { get; set; } = EComparisonType.Equals;

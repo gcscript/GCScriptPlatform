@@ -15,7 +15,7 @@
 
                 <MudGrid>
                     <MudItem xs="12">
-                        <MudSelect @bind-Value="@xpathSelectorBuilderFindItem.Tag" Margin="Margin.Dense" Variant="Variant.Outlined" TextChanged="UpdateXPath" Label="Tag">
+                        <MudSelect @bind-Value="@mXPathSelectorBuilder.FindElementWith.Tag" Margin="Margin.Dense" Variant="Variant.Outlined" TextChanged="UpdateXPath" Label="Tag">
                             @foreach (EHtmlTag item in Enum.GetValues(typeof(EHtmlTag)))
                             {
                                 <MudSelectItem Value="@item">@item</MudSelectItem>
@@ -23,55 +23,55 @@
                         </MudSelect>
                     </MudItem>
                     <MudDivider Class="my-1" />
-                    @foreach (var item in xpathSelectorBuilderFindItem.Items)
+                    @foreach (var model4FindElementWithItem in mXPathSelectorBuilder.FindElementWith.Items)
                     {
                         <MudItem xs="11">
                             <MudGrid Spacing="1">
                                 <MudItem xs="12" md="3">
-                                    <MudSelect @bind-Value="@item.Mode" Margin="Margin.Dense" Variant="Variant.Outlined" TextChanged="UpdateXPath">
-                                        @foreach (EXPathSelectorBuilderMode item in Enum.GetValues(typeof(EXPathSelectorBuilderMode)))
+                                    <MudSelect @bind-Value="@model4FindElementWithItem.Mode" Margin="Margin.Dense" Variant="Variant.Outlined" TextChanged="UpdateXPath">
+                                        @foreach (EXPathSelectorBuilderMode eItem in Enum.GetValues(typeof(EXPathSelectorBuilderMode)))
                                         {
-                                            <MudSelectItem Value="@item">@item</MudSelectItem>
+                                            <MudSelectItem Value="@eItem">@eItem</MudSelectItem>
                                         }
                                     </MudSelect>
                                 </MudItem>
 
-                                @if (item.Mode == EXPathSelectorBuilderMode.Attribute)
+                                @if (model4FindElementWithItem.Mode == EXPathSelectorBuilderMode.Attribute)
                                 {
                                     <MudItem xs="12" md="3">
-                                        <MudTextField T="string" Value="@item.Attribute" ValueChanged="(e => { item.Attribute = e; UpdateXPath(); })" Label="Attribute" Variant="Variant.Outlined" Margin="Margin.Dense" MaxLength="100" Immediate ShrinkLabel Clearable />
+                                        <MudTextField T="string" Value="@model4FindElementWithItem.Attribute" ValueChanged="(e => { model4FindElementWithItem.Attribute = e; UpdateXPath(); })" Label="Attribute" Variant="Variant.Outlined" Margin="Margin.Dense" MaxLength="100" Immediate ShrinkLabel Clearable />
                                     </MudItem>
                                 }
 
                                 <MudItem xs="12" md="3">
-                                    <MudSelect @bind-Value="@item.ComparisonType" Margin="Margin.Dense" Variant="Variant.Outlined" TextChanged="UpdateXPath">
-                                        @foreach (EComparisonType item in Enum.GetValues(typeof(EComparisonType)))
+                                    <MudSelect @bind-Value="@model4FindElementWithItem.ComparisonType" Margin="Margin.Dense" Variant="Variant.Outlined" TextChanged="UpdateXPath">
+                                        @foreach (EComparisonType eItem in Enum.GetValues(typeof(EComparisonType)))
                                         {
-                                            <MudSelectItem Value="@item">@item</MudSelectItem>
+                                            <MudSelectItem Value="@eItem">@eItem</MudSelectItem>
                                         }
                                     </MudSelect>
                                 </MudItem>
 
-                                <MudItem xs="12" md="@(item.Mode == EXPathSelectorBuilderMode.Attribute ? 3 : 6)">
-                                    <MudTextField T="string" Value="@item.Value" ValueChanged="(e => { item.Value = e; UpdateXPath(); })" Label="Value" Variant="Variant.Outlined" Margin="Margin.Dense" MaxLength="100" Immediate ShrinkLabel Clearable />
+                                <MudItem xs="12" md="@(model4FindElementWithItem.Mode == EXPathSelectorBuilderMode.Attribute ? 3 : 6)">
+                                    <MudTextField T="string" Value="@model4FindElementWithItem.Value" ValueChanged="(e => { model4FindElementWithItem.Value = e; UpdateXPath(); })" Label="Value" Variant="Variant.Outlined" Margin="Margin.Dense" MaxLength="100" Immediate ShrinkLabel Clearable />
                                 </MudItem>
                             </MudGrid>
                         </MudItem>
                         <MudItem xs="1" Class="align-content-center pa-1">
                             <MudStack AlignItems="AlignItems.Center">
-                                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Primary" OnClick="() => {xpathSelectorBuilderFindItem.Items.Remove(item); UpdateXPath();}" />
+                                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Primary" OnClick="() => {mXPathSelectorBuilder.FindElementWith.Items.Remove(model4FindElementWithItem); UpdateXPath();}" />
                             </MudStack>
                         </MudItem>
                         <MudDivider Class="my-1" />
                     }
                 </MudGrid>
                 <MudStack AlignItems="AlignItems.Center">
-                    <MudFab Color="Color.Primary" Class="mt-3" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="() => {xpathSelectorBuilderFindItem.Items.Add(new XPathSelectorBuilderItem());}" />
+                    <MudFab Color="Color.Primary" Class="mt-3" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="() => {mXPathSelectorBuilder.FindElementWith.Items.Add(new ());}" />
                 </MudStack>
             </MudStack>
         </MudPaper>
 
-        @foreach (var xpathSelectorBuilderFindItems in xpathSelectorBuilderThenFindItem.xpathSelectorBuilderFindItems)
+        @foreach (var model3 in mXPathSelectorBuilder.ThenList)
         {
             <MudPaper Class="pa-5" Elevation="3">
                 <MudStack>
@@ -81,22 +81,22 @@
                         </MudItem>
                         <MudItem xs="1">
                             <MudStack AlignItems="AlignItems.End">
-                                <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Primary" OnClick="() =>{xpathSelectorBuilderThenFindItem.xpathSelectorBuilderFindItems.Remove(xpathSelectorBuilderFindItems); UpdateXPath(); }" />
+                                <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Primary" OnClick="() =>{mXPathSelectorBuilder.ThenList.Remove(model3); UpdateXPath(); }" />
                             </MudStack>
                         </MudItem>
                     </MudGrid>
 
                     <MudGrid>
                         <MudItem xs="12">
-                            <MudSelect @bind-Value="@xpathSelectorBuilderFindItems.Find" Margin="Margin.Dense" Variant="Variant.Outlined" TextChanged="UpdateXPath" Label="Find">
-                                @foreach (EXPathSelectorBuilderFind eXPathSelectorBuilderFind in Enum.GetValues(typeof(EXPathSelectorBuilderFind)))
+                            <MudSelect @bind-Value="@model3.Find" Margin="Margin.Dense" Variant="Variant.Outlined" TextChanged="UpdateXPath" Label="Find">
+                                @foreach (EXPathSelectorBuilderFind eItem in Enum.GetValues(typeof(EXPathSelectorBuilderFind)))
                                 {
-                                    <MudSelectItem Value="@eXPathSelectorBuilderFind">@eXPathSelectorBuilderFind</MudSelectItem>
+                                    <MudSelectItem Value="@eItem">@eItem</MudSelectItem>
                                 }
                             </MudSelect>
                         </MudItem>
                         <MudItem xs="12">
-                            <MudSelect @bind-Value="@xpathSelectorBuilderFindItems.Tag" Margin="Margin.Dense" Variant="Variant.Outlined" TextChanged="UpdateXPath" Label="Tag">
+                            <MudSelect @bind-Value="@model3.Tag" Margin="Margin.Dense" Variant="Variant.Outlined" TextChanged="UpdateXPath" Label="Tag">
                                 @foreach (EHtmlTag eHtmlTag in Enum.GetValues(typeof(EHtmlTag)))
                                 {
                                     <MudSelectItem Value="@eHtmlTag">@eHtmlTag</MudSelectItem>
@@ -104,15 +104,15 @@
                             </MudSelect>
                         </MudItem>
                         <MudDivider Class="my-1" />
-                        @foreach (var item in xpathSelectorBuilderFindItems.Items)
+                        @foreach (var item in model3.Items)
                         {
                             <MudItem xs="11">
                                 <MudGrid Spacing="1">
                                     <MudItem xs="12" md="3">
                                         <MudSelect @bind-Value="@item.Mode" Margin="Margin.Dense" Variant="Variant.Outlined" TextChanged="UpdateXPath">
-                                            @foreach (EXPathSelectorBuilderMode eXPathSelectorBuilderMode in Enum.GetValues(typeof(EXPathSelectorBuilderMode)))
+                                            @foreach (EXPathSelectorBuilderMode eItem in Enum.GetValues(typeof(EXPathSelectorBuilderMode)))
                                             {
-                                                <MudSelectItem Value="@eXPathSelectorBuilderMode">@eXPathSelectorBuilderMode</MudSelectItem>
+                                                <MudSelectItem Value="@eItem">@eItem</MudSelectItem>
                                             }
                                         </MudSelect>
                                     </MudItem>
@@ -140,20 +140,20 @@
                             </MudItem>
                             <MudItem xs="1" Class="align-content-center pa-1">
                                 <MudStack AlignItems="AlignItems.Center">
-                                    <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Primary" OnClick="() => {xpathSelectorBuilderFindItems.Items.Remove(item); UpdateXPath();}" />
+                                    <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Primary" OnClick="() => {model3.Items.Remove(item); UpdateXPath();}" />
                                 </MudStack>
                             </MudItem>
                             <MudDivider Class="my-1" />
                         }
                     </MudGrid>
                     <MudStack AlignItems="AlignItems.Center">
-                        <MudFab Color="Color.Primary" Class="mt-3" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="() => {xpathSelectorBuilderFindItems.Items.Add(new XPathSelectorBuilderItem());}" />
+                        <MudFab Color="Color.Primary" Class="mt-3" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="() => {model3.Items.Add(new ());}" />
                     </MudStack>
                 </MudStack>
             </MudPaper>
         }
         <MudStack AlignItems="AlignItems.Center">
-            <MudFab Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Add" Size="Size.Medium" OnClick="() => {xpathSelectorBuilderThenFindItem.xpathSelectorBuilderFindItems.Add(new XPathSelectorBuilderFindItem { Items = { new XPathSelectorBuilderItem() } });}" />
+            <MudFab Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Add" Size="Size.Medium" OnClick="() => {mXPathSelectorBuilder.ThenList.Add(new());}" />
         </MudStack>
     </MudStack>
 </MudContainer>

@@ -12,34 +12,30 @@ public partial class XPathSelectorBuilder : ComponentBase
     [Inject] protected IJSRuntime JSRuntime { get; set; }
     [Inject] protected ISnackbar Snackbar { get; set; }
 
-    private XPathSelectorBuilderFindItem xpathSelectorBuilderFindItem = new();
-    private XPathSelectorBuilderThenFindItem xpathSelectorBuilderThenFindItem = new();
+    private MXPathSelectorBuilder mXPathSelectorBuilder = new();
+
     private string xpath = "";
 
-    protected override void OnInitialized()
-    {
-        xpathSelectorBuilderFindItem.Items.Add(new XPathSelectorBuilderItem());
-    }
+    protected override void OnInitialized() { }
 
     private void UpdateXPath()
     {
         var sb = new StringBuilder();
-        sb.Append(xpathSelectorBuilderFindItem.Tag == EHtmlTag.any ? "//*" : $"//{xpathSelectorBuilderFindItem.Tag}");
-        sb.Append(XPathBuilder(xpathSelectorBuilderFindItem.Items));
+        sb.Append(mXPathSelectorBuilder.FindElementWith.Tag == EHtmlTag.any ? "//*" : $"//{mXPathSelectorBuilder.FindElementWith.Tag}");
+        sb.Append(XPathBuilder(mXPathSelectorBuilder.FindElementWith.Items));
 
-        foreach (var xpathSelectorBuilderFindItem in xpathSelectorBuilderThenFindItem.xpathSelectorBuilderFindItems)
+        foreach (var xpathSelectorBuilderFindItem in mXPathSelectorBuilder.ThenList)
         {
             sb.Append($"/{xpathSelectorBuilderFindItem.Find.ToString().ToLower()}::");
             sb.Append(xpathSelectorBuilderFindItem.Tag == EHtmlTag.any ? "*" : $"{xpathSelectorBuilderFindItem.Tag}");
             sb.Append(XPathBuilder(xpathSelectorBuilderFindItem.Items));
         }
 
-
         xpath = sb.ToString();
         InvokeAsync(StateHasChanged);
     }
 
-    private static string XPathBuilder(List<XPathSelectorBuilderItem> xpathSelectorBuilderItemList)
+    private static string XPathBuilder(List<MXPathSelectorBuilderItem> xpathSelectorBuilderItemList)
     {
         foreach (var item in xpathSelectorBuilderItemList)
         {
